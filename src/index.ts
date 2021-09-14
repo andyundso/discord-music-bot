@@ -75,6 +75,9 @@ client.on('message', async (message: Message) => {
     } else if (message.content.startsWith(`${prefix}stop`)) {
         stop(message, serverQueue);
         return;
+    } else if (message.content.startsWith(`${prefix}queue`)) {
+        displayQueue(message, serverQueue);
+        return;
     } else {
         message.channel.send("Brüeder red Bot mit mir");
         message.channel.send(helpMessage())
@@ -193,8 +196,20 @@ function helpMessage(): MessageEmbed {
             name: '!stop',
             value: 'Wiedergabe stoppen',
             inline: true
+        }, {
+            name: '!queue',
+            value: 'Aktuelle Queue anzeigen lassen',
+            inline: true
         }
     ]
 
     return embed
+}
+
+function displayQueue(message: Message, serverQueue: QueueConstruct | undefined) {
+    if (!serverQueue || !serverQueue.connection) {
+        message.channel.send('Momentan kei Banger am blaste.')
+    } else {
+        message.channel.send(serverQueue.songs.map((song, index) => `${index + 1}: ${song.title}`))
+    }
 }
