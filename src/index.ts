@@ -11,6 +11,7 @@ import {
     VoiceConnection
 } from 'discord.js'
 import * as scrapper from 'youtube-scrapper'
+import {YoutubeVideo} from "youtube-scrapper/dist/structures/YoutubeVideo";
 
 require('dotenv').config()
 
@@ -92,6 +93,7 @@ async function execute(message: Message, serverQueue: QueueConstruct | undefined
         return message.channel.send(
             "Du musch imene Channel si zum Musig abspiele."
         );
+
     const permissions = voiceChannel.permissionsFor(message.client.user!);
     if (!permissions!.has("CONNECT") || !permissions!.has("SPEAK")) {
         return message.channel.send(
@@ -99,7 +101,14 @@ async function execute(message: Message, serverQueue: QueueConstruct | undefined
         );
     }
 
-    const songInfo = await scrapper.getVideoInfo(args[1]);
+    let songInfo: YoutubeVideo;
+    if (args.length <= 2) {
+        songInfo = await scrapper.getVideoInfo(args[1])
+    } else {
+        const result = await scrapper.search([undefined, ...args].join(' '))
+        songInfo = await scrapper.getVideoInfo(result.videos[0].id)
+    }
+
     const song = {
         title: songInfo.info.title,
         url: songInfo.info.url,
