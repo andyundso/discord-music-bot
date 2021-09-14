@@ -1,5 +1,15 @@
 import * as Discord from 'discord.js'
-import {DMChannel, Guild, Message, NewsChannel, Snowflake, TextChannel, VoiceChannel, VoiceConnection} from 'discord.js'
+import {
+    DMChannel,
+    Guild,
+    Message,
+    MessageEmbed,
+    NewsChannel,
+    Snowflake,
+    TextChannel,
+    VoiceChannel,
+    VoiceConnection
+} from 'discord.js'
 import * as scrapper from 'youtube-scrapper'
 
 require('dotenv').config()
@@ -66,7 +76,8 @@ client.on('message', async (message: Message) => {
         stop(message, serverQueue);
         return;
     } else {
-        message.channel.send("Das kenni nöd, sorry uwu :(");
+        message.channel.send("Brüeder red Bot mit mir");
+        message.channel.send(helpMessage())
     }
 })
 
@@ -164,4 +175,26 @@ function stop(message: Message, serverQueue: QueueConstruct | undefined) {
 
     serverQueue.songs = [];
     serverQueue.connection?.dispatcher.end();
+}
+
+function helpMessage(): MessageEmbed {
+    const embed = new MessageEmbed()
+    embed.title = 'Mozart-Bot Hiuf'
+    embed.fields = [
+        {
+            name: '!play',
+            value: 'Einen Song abspielen',
+            inline: true
+        }, {
+            name: '!skip',
+            value: 'Einen Song überspringen',
+            inline: true
+        }, {
+            name: '!stop',
+            value: 'Wiedergabe stoppen',
+            inline: true
+        }
+    ]
+
+    return embed
 }
