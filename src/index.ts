@@ -87,6 +87,7 @@ client.on('message', async (message: Message) => {
 
 async function execute(message: Message, serverQueue: QueueConstruct | undefined) {
     const args = message.content.split(" ");
+    message.channel.send('ein Moment, luege grad na öbi was han ...')
 
     const voiceChannel = message.member!.voice.channel;
     if (!voiceChannel)
