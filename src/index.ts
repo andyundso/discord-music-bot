@@ -12,6 +12,7 @@ import {
 } from 'discord.js'
 import * as scrapper from 'youtube-scrapper'
 import {YoutubeVideo} from "youtube-scrapper/dist/structures/YoutubeVideo";
+import {remastered} from "./remastered";
 
 require('dotenv').config()
 
@@ -79,6 +80,10 @@ client.on('message', async (message: Message) => {
     } else if (message.content.startsWith(`${prefix}queue`)) {
         displayQueue(message, serverQueue);
         return;
+    } else if (message.content.startsWith(`${prefix}banger`)) {
+        message.content = `!play ${remastered[Math.floor(Math.random() * remastered.length)]}`
+        execute(message, serverQueue);
+        return;
     } else {
         message.channel.send("Brüeder red Bot mit mir");
         message.channel.send(helpMessage())
@@ -103,11 +108,17 @@ async function execute(message: Message, serverQueue: QueueConstruct | undefined
     }
 
     let songInfo: YoutubeVideo;
-    if (args.length <= 2) {
-        songInfo = await scrapper.getVideoInfo(args[1])
-    } else {
-        const result = await scrapper.search([undefined, ...args].join(' '))
-        songInfo = await scrapper.getVideoInfo(result.videos[0].id)
+    try {
+        if (args.length <= 2) {
+            songInfo = await scrapper.getVideoInfo(args[1])
+        } else {
+            const result = await scrapper.search([undefined, ...args].join(' '))
+            songInfo = await scrapper.getVideoInfo(result.videos[0].id)
+        }
+    } catch(error) {
+        console.error(error)
+        await message.channel.send('sorry, da hed was ned klapped :(')
+        return;
     }
 
     const song = {
