@@ -25,6 +25,7 @@
     "dotenv": "^10.0.0",
     "ffmpeg": "^0.0.4",
     "fluent-ffmpeg": "^2.1.2",
-    "youtube-scrapper": "^1.1.4"
+    "scrape-youtube": "^2.1.9",
+    "ytdl-core": "^4.9.1"
   }
 }

@@ -10,9 +10,10 @@ import {
     VoiceChannel,
     VoiceConnection
 } from 'discord.js'
-import * as scrapper from 'youtube-scrapper'
-import {YoutubeVideo} from "youtube-scrapper/dist/structures/YoutubeVideo";
 import {remastered} from "./remastered";
+import youtube from 'scrape-youtube';
+import * as ytdl from 'ytdl-core';
+import {videoInfo} from 'ytdl-core';
 
 require('dotenv').config()
 
@@ -107,23 +108,22 @@ async function execute(message: Message, serverQueue: QueueConstruct | undefined
         );
     }
 
-    let songInfo: YoutubeVideo;
+    let songInfo: videoInfo;
     try {
         if (args.length <= 2) {
-            songInfo = await scrapper.getVideoInfo(args[1])
+            songInfo = await ytdl.getInfo(args[1])
         } else {
-            const result = await scrapper.search([undefined, ...args].join(' '))
-            songInfo = await scrapper.getVideoInfo(result.videos[0].id)
+            songInfo = await searchYouTubeVideo([undefined, ...args].join(' '))
         }
-    } catch(error) {
+    } catch (error) {
         console.error(error)
         await message.channel.send('sorry, da hed was ned klapped :(')
         return;
     }
 
     const song = {
-        title: songInfo.info.title,
-        url: songInfo.info.url,
+        title: songInfo.videoDetails.title,
+        url: songInfo.videoDetails.video_url,
     };
 
     if (!serverQueue) {
@@ -168,7 +168,7 @@ async function play(guild: Guild, song: Song) {
         return;
     }
 
-    const dispatcher = serverQueue?.connection?.play(await scrapper.download(song.url))
+    const dispatcher = serverQueue?.connection?.play(ytdl.default(song.url, { filter: 'audioonly', dlChunkSize: 0 }))
         .on("finish", () => {
             serverQueue?.songs.shift();
             play(guild, serverQueue?.songs[0]);
@@ -221,6 +221,10 @@ function helpMessage(): MessageEmbed {
             name: '!queue',
             value: 'Aktuelle Queue anzeigen lassen',
             inline: true
+        }, {
+            name: '!banger',
+            value: 'En Banger abspiele',
+            inline: true
         }
     ]
 
@@ -233,4 +237,9 @@ function displayQueue(message: Message, serverQueue: QueueConstruct | undefined)
     } else {
         message.channel.send(serverQueue.songs.map((song, index) => `${index + 1}: ${song.title}`))
     }
+}
+
+async function searchYouTubeVideo(query: string): Promise<videoInfo> {
+    const results = await youtube.search(query)
+    return ytdl.getInfo(results.videos[0].link)
 }
