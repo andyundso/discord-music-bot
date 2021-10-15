@@ -1,5 +1,5 @@
 import {Message} from "discord.js";
-import scdl from "soundcloud-downloader";
+const scdl = require("soundcloud-downloader");
 import {QueueConstruct} from "../index";
 import {checkPrerequisite, sendToQueue} from "./commons";
 
