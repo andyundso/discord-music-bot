@@ -27,6 +27,6 @@
     "fluent-ffmpeg": "^2.1.2",
     "scrape-youtube": "^2.1.9",
     "soundcloud-downloader": "^1.0.0",
-    "ytdl-core": "^4.9.1"
+    "ytdl-core": "github:fent/node-ytdl-core#pull/1010/head"
   }
 }
