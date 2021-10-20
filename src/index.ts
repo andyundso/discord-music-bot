@@ -62,30 +62,55 @@ client.on('message', async (message: Message) => {
 
     const serverQueue = queue.get(message.guild!.id);
 
-    if (message.content.startsWith(`${prefix}youtube`)) {
-        findYouTube(message, serverQueue);
-        return;
-    } else if (message.content.startsWith(`${prefix}skip`)) {
-        skip(message, serverQueue);
-        return;
-    } else if (message.content.startsWith(`${prefix}stop`)) {
-        stop(message, serverQueue);
-        return;
-    } else if (message.content.startsWith(`${prefix}queue`)) {
-        displayQueue(message, serverQueue);
-        return;
-    } else if (message.content.startsWith(`${prefix}banger`)) {
-        message.content = `!play ${remastered[Math.floor(Math.random() * remastered.length)]}`
-        findYouTube(message, serverQueue);
-        return;
-    } else if (message.content.startsWith(`${prefix}soundcloud`)) {
-        findSoundcloud(message, serverQueue)
-        return;
-    } else {
+    const commandMapping = {
+        "youtube": findYouTube,
+        "yt": findYouTube,
+        "skip": skip,
+        "stop": stop,
+        "queue": displayQueue,
+        "banger": playBanger,
+        "soundcloud": findSoundcloud,
+        "sc": findSoundcloud
+    }
+
+    const command = message.content.split(' ')[0];
+
+    if (!commandMapping[command]){
         message.channel.send("Brüeder red Bot mit mir");
         message.channel.send(helpMessage())
     }
+
+    commandMapping[command](message, serverQueue);
+
+    // if (message.content.startsWith(`${prefix}youtube`)) {
+    //     findYouTube(message, serverQueue);
+    //     return;
+    // } else if (message.content.startsWith(`${prefix}skip`)) {
+    //     skip(message, serverQueue);
+    //     return;
+    // } else if (message.content.startsWith(`${prefix}stop`)) {
+    //     stop(message, serverQueue);
+    //     return;
+    // } else if (message.content.startsWith(`${prefix}queue`)) {
+    //     displayQueue(message, serverQueue);
+    //     return;
+    // } else if (message.content.startsWith(`${prefix}banger`)) {
+    //     message.content = `!play ${remastered[Math.floor(Math.random() * remastered.length)]}`
+    //     findYouTube(message, serverQueue);
+    //     return;
+    // } else if (message.content.startsWith(`${prefix}soundcloud`)) {
+    //     findSoundcloud(message, serverQueue)
+    //     return;
+    // } else {
+    //     message.channel.send("Brüeder red Bot mit mir");
+    //     message.channel.send(helpMessage())
+    // }
 })
+
+function playBanger(message :Message, serverQueue:QueueConstruct | undefined) {
+    message.content = `!play ${remastered[Math.floor(Math.random() * remastered.length)]}`
+    findYouTube(message, serverQueue);
+}
 
 function helpMessage(): MessageEmbed {
     const embed = new MessageEmbed()
