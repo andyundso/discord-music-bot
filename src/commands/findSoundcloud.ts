@@ -1,5 +1,5 @@
 import {Message} from "discord.js";
-const scdl = require("soundcloud-downloader");
+const scdl = require('soundcloud-downloader').default;
 import {QueueConstruct} from "../index";
 import {checkPrerequisite, sendToQueue} from "./commons";
 
@@ -10,8 +10,6 @@ export async function findSoundcloud(message: Message, serverQueue: QueueConstru
 
     const args = message.content.split(" ");
     const voiceChannel = message.member!.voice.channel!;
-
-    console.log(args)
 
     let songInfo;
     try {
