@@ -82,33 +82,7 @@ client.on('message', async (message: Message) => {
     } else {
         message.channel.send("Brüeder red Bot mit mir");
         message.channel.send(helpMessage())
-        
     }
-    
-
-    // if (message.content.startsWith(`${prefix}youtube`)) {
-    //     findYouTube(message, serverQueue);
-    //     return;
-    // } else if (message.content.startsWith(`${prefix}skip`)) {
-    //     skip(message, serverQueue);
-    //     return;
-    // } else if (message.content.startsWith(`${prefix}stop`)) {
-    //     stop(message, serverQueue);
-    //     return;
-    // } else if (message.content.startsWith(`${prefix}queue`)) {
-    //     displayQueue(message, serverQueue);
-    //     return;
-    // } else if (message.content.startsWith(`${prefix}banger`)) {
-    //     message.content = `!play ${remastered[Math.floor(Math.random() * remastered.length)]}`
-    //     findYouTube(message, serverQueue);
-    //     return;
-    // } else if (message.content.startsWith(`${prefix}soundcloud`)) {
-    //     findSoundcloud(message, serverQueue)
-    //     return;
-    // } else {
-    //     message.channel.send("Brüeder red Bot mit mir");
-    //     message.channel.send(helpMessage())
-    // }
 })
 
 function playBanger(message :Message, serverQueue:QueueConstruct | undefined) {
