@@ -17,7 +17,7 @@ If you want to test the changes against a real voice channel, you need a real Di
 TOKEN=<TOKEN from step 2>
 PREFIX=!
 ```
-4. Go-to the OAuth2 tab in the developer portal and generate an invite link for your bot. Select the following privileges:
+4. Go-to the OAuth2 tab in the developer portal and generate an invite link for your `bot`. Select the following privileges:
    1. `Send Messages`
    2. `Manage Messages`
    3. `Connect`
