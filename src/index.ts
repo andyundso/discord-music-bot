@@ -76,7 +76,6 @@ client.on('message', async (message: Message) => {
 
     const command = message.content.split(' ')[0].replace(prefix,'').toLowerCase();
 
-    console.log(command);
     if (commandMapping[command]){
         commandMapping[command](message, serverQueue);
     } else {
