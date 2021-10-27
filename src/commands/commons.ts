@@ -1,6 +1,6 @@
 import {Guild, Message, VoiceChannel} from "discord.js";
 import {queue, QueueConstruct, Song} from "../index";
-const scdl = require("soundcloud-downloader");
+const scdl = require('soundcloud-downloader').default;
 import * as ytdl from "ytdl-core";
 
 const weekday = new Array(7);
