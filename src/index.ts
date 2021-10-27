@@ -62,58 +62,61 @@ client.on('message', async (message: Message) => {
 
     const serverQueue = queue.get(message.guild!.id);
 
-    if (message.content.startsWith(`${prefix}youtube`)) {
-        findYouTube(message, serverQueue);
-        return;
-    } else if (message.content.startsWith(`${prefix}skip`)) {
-        skip(message, serverQueue);
-        return;
-    } else if (message.content.startsWith(`${prefix}stop`)) {
-        stop(message, serverQueue);
-        return;
-    } else if (message.content.startsWith(`${prefix}queue`)) {
-        displayQueue(message, serverQueue);
-        return;
-    } else if (message.content.startsWith(`${prefix}banger`)) {
-        message.content = `!play ${remastered[Math.floor(Math.random() * remastered.length)]}`
-        findYouTube(message, serverQueue);
-        return;
-    } else if (message.content.startsWith(`${prefix}soundcloud`)) {
-        findSoundcloud(message, serverQueue)
-        return;
+    const commandMapping: any = {
+        "youtube": findYouTube,
+        "yt": findYouTube,
+        "skip": skip,
+        "stop": stop,
+        "queue": displayQueue,
+        "banger": playBanger,
+        "soundcloud": findSoundcloud,
+        "sc": findSoundcloud,
+        "gugu": () => message.channel.send("gaga")
+    }
+
+    const command = message.content.split(' ')[0].replace(prefix,'').toLowerCase();
+
+    if (commandMapping[command]){
+        commandMapping[command](message, serverQueue);
     } else {
         message.channel.send("Brüeder red Bot mit mir");
         message.channel.send(helpMessage())
     }
 })
 
+function playBanger(message :Message, serverQueue:QueueConstruct | undefined) {
+    message.content = `!play ${remastered[Math.floor(Math.random() * remastered.length)]}`
+    findYouTube(message, serverQueue);
+}
+
+
 function helpMessage(): MessageEmbed {
     const embed = new MessageEmbed()
     embed.title = 'Mozart-Bot Hiuf'
     embed.fields = [
         {
-            name: '!soundcloud',
+            name: `${prefix}soundcloud`,
             value: 'Einen Song von Soundcloud abspielen',
             inline: true
         },
         {
-            name: '!youtube',
+            name: `${prefix}youtube`,
             value: 'Einen Song von Youtube abspielen',
             inline: true
         }, {
-            name: '!skip',
+            name: `${prefix}skip`,
             value: 'Einen Song überspringen',
             inline: true
         }, {
-            name: '!stop',
+            name: `${prefix}stop`,
             value: 'Wiedergabe stoppen',
             inline: true
         }, {
-            name: '!queue',
+            name: `${prefix}queue`,
             value: 'Aktuelle Queue anzeigen lassen',
             inline: true
         }, {
-            name: '!banger',
+            name: `${prefix}banger`,
             value: 'En Banger abspiele',
             inline: true
         }

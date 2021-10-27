@@ -13,7 +13,11 @@ If you want to test the changes against a real voice channel, you need a real Di
 1. Register an application at the [Discord developer portal](https://discord.com/developers/applications/).
 2. Afterwards, copy the secret token which you find in the bot tab
 3. Create a `.env` file in the root folder of this application with the content listed below
-4. Go-to the OAuth2 tab in the developer portal and generate an invite link for your bot. Select the following privileges:
+```
+TOKEN=<TOKEN from step 2>
+PREFIX=!
+```
+4. Go-to the OAuth2 tab in the developer portal and generate an invite link for your `bot`. Select the following privileges:
    1. `Send Messages`
    2. `Manage Messages`
    3. `Connect`
