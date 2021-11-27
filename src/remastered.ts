@@ -18,5 +18,6 @@ export const remastered = [
     'https://www.youtube.com/watch?v=tbH9mXQipDM', // kollegah drive by
     'https://www.youtube.com/watch?v=o875br8N4Fs', // pitbull hotel room service
     'https://www.youtube.com/watch?v=PP0uRgsQtJk', // pitbull dont stop the party
-    'https://www.youtube.com/watch?v=iP9FfkcaTLw' // pitbull i know you want me
+    'https://www.youtube.com/watch?v=iP9FfkcaTLw', // pitbull i know you want me
+    'https://www.youtube.com/watch?v=KvMoU38_zy0' // polish cow
 ]
