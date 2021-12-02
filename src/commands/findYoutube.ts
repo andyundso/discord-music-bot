@@ -3,7 +3,7 @@ import {videoInfo} from "ytdl-core";
 import ytdl from "ytdl-core";
 import {QueueConstruct} from "../index";
 import {checkPrerequisite, sendToQueue} from "./commons";
-import youtube from "scrape-youtube";
+import { youtube } from 'scrape-youtube';
 
 export async function findYouTube(message: Message, serverQueue: QueueConstruct | undefined) {
     if (!(await checkPrerequisite(message))) {
