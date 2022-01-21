@@ -6,10 +6,9 @@ import {
 import { queue } from './interfaces';
 import stop from './commands/stop';
 import skip from './commands/skip';
-import findYouTube from './commands/findYoutube';
-import findSoundcloud from './commands/findSoundcloud';
 import displayQueue from './commands/displayQueue';
 import playBanger from './commands/playBanger';
+import findSong from "./commands/findSong";
 
 require('dotenv').config();
 
@@ -20,13 +19,8 @@ function helpMessage(): MessageEmbed {
   embed.title = 'Mozart-Bot Hiuf';
   embed.fields = [
     {
-      name: `${prefix}soundcloud`,
-      value: 'Einen Song von Soundcloud abspielen',
-      inline: true,
-    },
-    {
-      name: `${prefix}youtube`,
-      value: 'Einen Song von Youtube abspielen',
+      name: `${prefix}play`,
+      value: 'Einen Song von Soundcloud oder YouTube abspielen',
       inline: true,
     }, {
       name: `${prefix}skip`,
@@ -77,14 +71,11 @@ client.on('message', async (message: Message) => {
   const serverQueue = queue.get(message.guild!.id);
 
   const commandMapping: any = {
-    youtube: findYouTube,
-    yt: findYouTube,
+    play: findSong,
     skip,
     stop,
     queue: displayQueue,
     banger: playBanger,
-    soundcloud: findSoundcloud,
-    sc: findSoundcloud,
     gugu: () => message.channel.send('gaga'),
   };
 
