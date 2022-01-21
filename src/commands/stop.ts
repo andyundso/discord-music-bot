@@ -1,15 +1,23 @@
-import {Message} from "discord.js";
-import {QueueConstruct} from "../index";
+import { Message } from 'discord.js';
+import { QueueConstruct } from '../interfaces';
 
-export function stop(message: Message, serverQueue: QueueConstruct | undefined) {
-    if (!message.member?.voice.channel)
-        return message.channel.send(
-            "Du musch imene Channel si zum d'Musig stoppe."
-        );
+function stop(message: Message, serverQueue: QueueConstruct | undefined) {
+  const queue = serverQueue;
 
-    if (!serverQueue)
-        return message.channel.send("bro was wetsch du, es giht nüt zum stoppe.");
+  if (!message.member?.voice.channel) {
+    return message.channel.send(
+      "Du musch imene Channel si zum d'Musig stoppe.",
+    );
+  }
 
-    serverQueue.songs = [];
-    serverQueue.connection?.dispatcher.end();
+  if (!serverQueue) { return message.channel.send('bro was wetsch du, es giht nüt zum stoppe.'); }
+
+  if (queue !== undefined) {
+    queue.songs = [];
+    queue.connection?.dispatcher.end();
+  }
+
+  return null;
 }
+
+export default stop;
