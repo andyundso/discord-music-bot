@@ -9,5 +9,8 @@
   "rules": {
     "no-console": "off"
   },
-  "ignorePatterns": ["build/**/*"]
+  "ignorePatterns": [
+    "build/**/*",
+    "jest.config.js"
+  ]
 }
