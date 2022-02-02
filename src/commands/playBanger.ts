@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 import { QueueConstruct } from '../interfaces';
-import {youtubeUrl} from "../sources/youtube";
+import { youtubeUrl } from '../sources/youtube';
 
 const remastered = [
   'https://www.youtube.com/watch?v=DxHDxB2mVg4', // HRR

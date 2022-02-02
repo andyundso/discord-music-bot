@@ -8,7 +8,7 @@ import stop from './commands/stop';
 import skip from './commands/skip';
 import displayQueue from './commands/displayQueue';
 import playBanger from './commands/playBanger';
-import findSong from "./commands/findSong";
+import findSong from './commands/findSong';
 
 require('dotenv').config();
 
