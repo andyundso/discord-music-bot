@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 import { QueueConstruct } from '../interfaces';
-import findYouTube from './findYoutube';
+import { youtubeUrl } from '../sources/youtube';
 
 const remastered = [
   'https://www.youtube.com/watch?v=DxHDxB2mVg4', // HRR
@@ -29,7 +29,7 @@ const remastered = [
 function playBanger(message: Message, serverQueue: QueueConstruct | undefined) {
   const commandMessage = { ...message } as Message;
   commandMessage.content = `!play ${remastered[Math.floor(Math.random() * remastered.length)]}`;
-  findYouTube(commandMessage, serverQueue);
+  youtubeUrl(commandMessage, serverQueue);
 }
 
 export default playBanger;

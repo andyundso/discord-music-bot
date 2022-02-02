@@ -1,21 +1,16 @@
 import { Message } from 'discord.js';
-import { checkPrerequisite, sendToQueue } from './commons';
 import { QueueConstruct } from '../interfaces';
+import { sendToQueue } from '../commands/commons';
 
 const scdl = require('soundcloud-downloader').default;
 
-async function findSoundcloud(message: Message, serverQueue: QueueConstruct | undefined) {
-  if (!(await checkPrerequisite(message))) {
-    return;
-  }
-
+async function soundcloudUrl(message: Message, serverQueue: QueueConstruct | undefined) {
   const args = message.content.split(' ');
   const voiceChannel = message.member!.voice.channel!;
 
   let songInfo;
   try {
     songInfo = await scdl.getInfo(args[1]);
-    console.log(songInfo);
   } catch (error) {
     console.error(error);
     await message.channel.send('sorry, da hed was ned klapped :(');
@@ -31,4 +26,4 @@ async function findSoundcloud(message: Message, serverQueue: QueueConstruct | un
   sendToQueue(serverQueue, message, voiceChannel, song);
 }
 
-export default findSoundcloud;
+export default soundcloudUrl;
