@@ -38,5 +38,16 @@
     "scrape-youtube": "^2.1.9",
     "soundcloud-downloader": "^1.0.0",
     "ytdl-core": "^4.9.1"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"
   }
 }
