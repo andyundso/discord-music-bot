@@ -9,8 +9,17 @@ import skip from './commands/skip';
 import displayQueue from './commands/displayQueue';
 import playBanger from './commands/playBanger';
 import findSong from './commands/findSong';
+import * as Sentry from '@sentry/node';
+import * as Tracing from '@sentry/tracing';
 
 require('dotenv').config();
+
+if (process.env.SENTRY_DSN !== null) {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    tracesSampleRate: 0.5,
+  });
+}
 
 const prefix = process.env.PREFIX as string;
 
