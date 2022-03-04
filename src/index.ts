@@ -21,6 +21,21 @@ if (process.env.SENTRY_DSN !== null) {
   });
 }
 
+const transaction = Sentry.startTransaction({
+  op: "test",
+  name: "My First Test Transaction",
+});
+
+setTimeout(() => {
+  try {
+    throw "wiud"
+  } catch (e) {
+    Sentry.captureException(e);
+  } finally {
+    transaction.finish();
+  }
+}, 99);
+
 const prefix = process.env.PREFIX as string;
 
 function helpMessage(): MessageEmbed {
